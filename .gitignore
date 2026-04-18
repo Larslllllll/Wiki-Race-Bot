@@ -34,17 +34,8 @@ __pycache__/
 # ── Next.js / wiki-race client cache ─────────────────────────────────────────
 .cache/
 
-# ── Android build artifacts ───────────────────────────────────────────────────
-Apps/Android/.gradle/
-Apps/Android/build/
-Apps/Android/app/build/
-Apps/Android/local.properties
-Apps/Android/.idea/workspace.xml
-Apps/Android/.idea/caches/
-
-# ── C# / .NET build artifacts ────────────────────────────────────────────────
-Apps/Windows/bin/
-Apps/Windows/obj/
+# ── Apps (native clients) ─────────────────────────────────────────────────────
+Apps/
 
 # ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
