@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F5F5DC">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WikiRace Bot"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#1A237E"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Your name" android:textColor="#333" android:layout_marginBottom="4dp"/>
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="WikiBot"
+        android:inputType="text"
+        android:maxLength="20"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Lobby code (leave empty to create)" android:textColor="#333" android:layout_marginBottom="4dp"/>
+    <EditText
+        android:id="@+id/etLobbyCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="e.g. 4C68F"
+        android:inputType="textCapCharacters"
+        android:maxLength="5"
+        android:layout_marginBottom="8dp"/>
+
+    <CheckBox
+        android:id="@+id/cbStay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stay in lobby after game"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnPlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PLAY"
+        android:backgroundTint="#1A237E"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STOP"
+        android:backgroundTint="#B71C1C"
+        android:enabled="false"
+        android:layout_marginBottom="16dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textSize="12sp"
+            android:textColor="#111"
+            android:padding="8dp"
+            android:background="#E8E8D0"/>
+    </ScrollView>
+
+</LinearLayout>

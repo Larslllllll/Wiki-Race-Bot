@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.WikiRaceBot" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">#1A237E</item>
+        <item name="colorPrimaryVariant">#283593</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#FDD835</item>
+    </style>
+</resources>

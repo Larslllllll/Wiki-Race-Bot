@@ -1,0 +1,50 @@
+# ── Crawl data (gigabytes) ────────────────────────────────────────────────────
+crawl_output/
+
+# ── Trained models ────────────────────────────────────────────────────────────
+models/
+
+# ── Generated output ──────────────────────────────────────────────────────────
+brain.html
+
+# ── Machine-specific copies ───────────────────────────────────────────────────
+wiki-YOGA_LARS.py
+
+# ── Deprecated files ──────────────────────────────────────────────────────────
+dashboard.py
+start-tor.ps1
+
+# ── Lokale Dev-Scripts ────────────────────────────────────────────────────────
+github.bat
+github.ps1
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ── SQLite temp files ─────────────────────────────────────────────────────────
+*.db-shm
+*.db-wal
+
+# ── Claude local settings (personal) ─────────────────────────────────────────
+.claude/settings.local.json
+
+# ── Next.js / wiki-race client cache ─────────────────────────────────────────
+.cache/
+
+# ── Android build artifacts ───────────────────────────────────────────────────
+Apps/Android/.gradle/
+Apps/Android/build/
+Apps/Android/app/build/
+Apps/Android/local.properties
+
+# ── C# / .NET build artifacts ────────────────────────────────────────────────
+Apps/Windows/bin/
+Apps/Windows/obj/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
