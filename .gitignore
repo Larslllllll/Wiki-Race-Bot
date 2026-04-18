@@ -39,6 +39,8 @@ Apps/Android/.gradle/
 Apps/Android/build/
 Apps/Android/app/build/
 Apps/Android/local.properties
+Apps/Android/.idea/workspace.xml
+Apps/Android/.idea/caches/
 
 # ── C# / .NET build artifacts ────────────────────────────────────────────────
 Apps/Windows/bin/

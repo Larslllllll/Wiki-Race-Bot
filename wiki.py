@@ -61,12 +61,13 @@ THREADS_PER_TOR_INSTANCE = 4
 
 import shutil as _shutil
 TOR_EXE_DEFAULT: str = (
-    r"C:\tor\tor\tor.exe"
+    (_shutil.which("tor") or _shutil.which("tor.exe") or r"C:\tor\tor\tor.exe")
     if sys.platform == "win32"
     else (_shutil.which("tor") or "/usr/bin/tor")
 )
 TOR_DATA_BASE_DEFAULT: Path = (
-    Path(r"C:\tor") if sys.platform == "win32" else Path.home() / "tor_data"
+    Path.home() / "tor_data" if sys.platform != "win32"
+    else Path(r"C:\tor")
 )
 
 REQUEST_TIMEOUT = 12        # seconds
