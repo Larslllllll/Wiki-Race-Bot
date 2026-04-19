@@ -17,6 +17,7 @@ start-tor.ps1
 # ── Lokale Dev-Scripts ────────────────────────────────────────────────────────
 github.bat
 github.ps1
+delete.bat
 
 # ── Python cache ──────────────────────────────────────────────────────────────
 __pycache__/
