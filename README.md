@@ -24,7 +24,6 @@ Ein vollständiger Bot für [wiki-race.com](https://wiki-race.com), der Wikipedi
 - [Modell trainieren](#modell-trainieren)
 - [Visualisierung](#visualisierung)
 - [Architektur](#architektur)
-- [Apps](#apps)
 
 ---
 
@@ -105,7 +104,6 @@ Nur nötig wenn du den Crawler mit `--tor` betreiben willst (mehr parallele IPs,
 
 1. Auf [torproject.org](https://www.torproject.org/download/tor/) den **Tor Expert Bundle** herunterladen
 2. Entpacken nach `C:\tor\`
-3. Pfad zur `tor.exe` merken (Standard: `C:\tor\tor\tor.exe`)
 
 Zusätzliche Pakete:
 ```
@@ -116,11 +114,7 @@ pip install stem requests[socks]
 
 ## Graph-Datenbank aufbauen
 
-Der Bot braucht eine lokale SQLite-Datenbank mit allen Wikipedia-Verlinkungen. Diese wird aus offiziellen Wikipedia SQL-Dumps erstellt und ist danach ~86 GB groß.
-
-> Die fertige Datenbank kann nicht im Repo liegen (zu groß für GitHub) — sie muss einmalig selbst gebaut werden. Das dauert ca. 1-2 Stunden.
-
----
+Der Bot braucht eine lokale SQLite-Datenbank mit allen Wikipedia-Verlinkungen. Diese wird aus offiziellen Wikipedia SQL-Dumps erstellt und ist danach ~86 GB groß. Sie liegt nicht im Repo und muss einmalig selbst gebaut werden (~1-2 Stunden).
 
 ### Schritt 1 — Wikipedia Dumps herunterladen
 
@@ -136,8 +130,6 @@ Von [dumps.wikimedia.org](https://dumps.wikimedia.org/) folgende Dateien herunte
 - [`dewiki-latest-pagelinks.sql.gz`](https://dumps.wikimedia.org/dewiki/latest/dewiki-latest-pagelinks.sql.gz)
 - [`dewiki-latest-linktarget.sql.gz`](https://dumps.wikimedia.org/dewiki/latest/dewiki-latest-linktarget.sql.gz)
 
----
-
 ### Schritt 2 — Pfade in `fast_dump.bat` anpassen
 
 `fast_dump.bat` öffnen und die Pfade oben auf den eigenen Download-Ordner anpassen:
@@ -146,8 +138,6 @@ Von [dumps.wikimedia.org](https://dumps.wikimedia.org/) folgende Dateien herunte
 set PAGES_EN=C:\Users\DEINNAME\Downloads\enwiki-latest-page.sql.gz
 ...
 ```
-
----
 
 ### Schritt 3 — Import starten
 
@@ -220,29 +210,32 @@ Ohne GPU (lineares Modell):
 python wiki_race_bot.py train --linear
 ```
 
+Das trainierte Modell wird lokal unter `models/` gespeichert und nicht im Repo versioniert.
+
 ---
 
 ## Visualisierung
 
-Erzeugt eine interaktive Gehirn-Visualisierung des Wikipedia-Graphen als HTML:
+Erzeugt eine interaktive Graphvisualisierung des Wikipedia-Graphen:
 
 ```
 python visualisation.py --nodes 3000 --lang en --out brain.html
 ```
 
-Dann `brain.html` im Browser öffnen. Features: Zoom, Pan, Hover (zeigt Verlinkungen), Klick öffnet Wikipedia-Artikel, Suchfeld.
+Dann die generierte `brain.html` im Browser öffnen — Force-directed Graph mit Zoom, Pan, Hover, Suche und Wikipedia-Links per Klick.
 
 ---
 
 ## Architektur
 
 ```
-wiki.py                  Crawler — schreibt edges.jsonl + pages.jsonl
-fast_dump.py             Schnellimport aus Wikipedia SQL-Dumps → graph.db
+wiki.py                  Crawler — schreibt crawl_output/edges.jsonl + pages.jsonl
+fast_dump.py             Schnellimport aus Wikipedia SQL-Dumps → crawl_output/graph.db
 wiki_race_bot.py         Haupt-Einstiegspunkt: spielen, trainieren, indexieren
 export_db_to_edges.py    Exportiert graph.db zurück nach edges.jsonl (mit Resume)
 visualisation.py         Erstellt brain.html — interaktive D3.js Graphvisualisierung
 wait_then_crawl.py       Wartet auf Export, startet dann automatisch den Crawler
+timer.py                 Hilfstool für zeitgesteuerte Abläufe
 
 wikibot/
   bot.py                 Spiellogik: BFS-Pfad → semantisch → neural
@@ -252,31 +245,16 @@ wikibot/
   neural.py              DistilBERT-basierter Link-Scorer
   model.py               Lineares Modell als Fallback
   similarity.py          TF-IDF Ähnlichkeit für semantisches Ranking
-
-Apps/
-  Android/               Kotlin-App für Android
-  Windows/               C# .NET App für Windows
+  graph.py               In-Memory-Graph (für Training)
+  types.py               Gemeinsame Datentypen
 ```
 
 ### Wie der Bot navigiert
 
 1. **Graph-BFS** — kennt der lokale Graph beide Artikel, findet er den kürzesten Pfad in ~1-5s aus 945M+ Kanten
-2. **Bridge-Nodes** — Artikel nicht im Graph? Bot fetcht Wikipedia-Links und findet einen Knoten im Graph als Brücke
+2. **Bridge-Nodes** — Artikel nicht im Graph? Bot fetcht Wikipedia-Links und findet einen Knoten als Brücke
 3. **Neural Scorer** — DistilBERT bewertet welcher Link dem Ziel am nächsten ist
 4. **Semantische Ähnlichkeit** — TF-IDF Fallback ohne GPU
-
----
-
-## Apps
-
-### Windows (.NET)
-```
-cd Apps/Windows
-dotnet run -- --join LOBBYCODE --name WikiBot
-```
-
-### Android
-APK in `Apps/Android/` mit Android Studio bauen oder direkt auf Gerät sideloaden. Lobby-Code und Namen in der App eingeben, Play drücken.
 
 ---
 
